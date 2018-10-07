@@ -1,3 +1,10 @@
+# 分布式系统第二次作业
+
+小组人员：
+
+- 16337085
+- 1633
+
 # 实验要求
 
 ![homework_requirements](report.assets/homework_requirements.png)
@@ -62,11 +69,11 @@
 
 # 遇到的问题
 
-## 装在NFS上的虚拟机运行速度很慢
+## 1. 装在NFS上的虚拟机运行速度很慢
 
 当时装个Ubuntu系统都用了一个多小时，装好之后虚拟机每一次开机都需要20分钟以上的时间。瓶颈可能是网络传输速度过低和硬盘相应延时。每一次重启虚拟机要花费半个小时以上的时间，这个时间太长，让人无法接受。
 
-## host CPU does not provide required features
+## 2. host CPU does not provide required features
 
 换了不同的电脑，重头再次创建虚拟机，最后还是会遇到这个错误，不过required features后面的报错信息略有区别。尝试安装intel -ucode后更新配置文件并重启，仍然无法解决问题。
 
