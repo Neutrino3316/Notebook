@@ -67,9 +67,13 @@
 
 # 实验结论
 
-做不出来
+因为每一次重启虚拟机要花费半个小时以上的时间，这个时间太长，让人无法接受。所以我们放弃了尝试解决最后一个问题。
 
 # 遇到的问题
+
+## 1. 无法在源主机的virt-manager中连接到NFS服务器
+
+在源主机的Arch系统重启网络服务。
 
 ## 1. 无法在源主机的virt-manager中连接到目标主机
 
@@ -83,7 +87,7 @@ Arch系统下的virt-manager不能弹窗，所以在ssh连接过程中无法输�
 
 在Advanced选项中，允许不安全的迁移。
 
-## 2. 无法迁移虚拟机 host CPU does not provide required features
+## 1. 无法迁移虚拟机 host CPU does not provide required features
 
 换了不同的电脑，重头再次创建虚拟机，最后还是会遇到这个错误，不过required features后面的报错信息略有区别。尝试安装intel -ucode后更新配置文件并重启，仍然无法解决问题。
 
