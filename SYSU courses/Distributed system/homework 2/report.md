@@ -25,8 +25,10 @@
 
 ## 实验软件
 
+主要用到以下软件：
 - virt-manager
-- nfsserver
+- nfs server
+- openssh server
 
 # 实验过程
 
@@ -69,11 +71,19 @@
 
 # 遇到的问题
 
+## 1. 无法在源主机的virt-manager中连接到目标主机
+
+Arch系统下的virt-manager不能弹窗，所以在ssh连接过程中无法输目标主机的密码，因而无法连接。要用`sudo virt-manager --no-fork`来打开软件，在要输密码的时候，回到命令行界面输入目标主机的密码。
+
 ## 1. 装在NFS上的虚拟机运行速度很慢
 
 当时装个Ubuntu系统都用了一个多小时，装好之后虚拟机每一次开机都需要20分钟以上的时间。瓶颈可能是网络传输速度过低和硬盘相应延时。每一次重启虚拟机要花费半个小时以上的时间，这个时间太长，让人无法接受。
 
-## 2. host CPU does not provide required features
+## 1. 无法迁移虚拟机 提示不安全
+
+在Advanced选项中，允许不安全的迁移。
+
+## 2. 无法迁移虚拟机 host CPU does not provide required features
 
 换了不同的电脑，重头再次创建虚拟机，最后还是会遇到这个错误，不过required features后面的报错信息略有区别。尝试安装intel -ucode后更新配置文件并重启，仍然无法解决问题。
 
