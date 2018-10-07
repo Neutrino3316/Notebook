@@ -1,6 +1,14 @@
 # 实验要求
 
-![1538926267113](report.assets/homework_requirements.png)
+![homework_requirements](report.assets/homework_requirements.png)
+
+# 实验原理
+
+动态迁移就是在保证虚拟机上服务正常运行的同时，将一个虚拟机系统从一个物理主机移动到另一个物理主机的过程。该过程不会对最终用户造成明显的影响，从而使得管理员能够在不影响用户正常使用的情况下，对物理服务器进行离线维修或者升级。与静态迁移不同的是，为了保证迁移过程中虚拟机服务的可用，迁移过程仅有非常短暂的停机时间。迁移的前面阶段，服务在源主机的虚拟机上运行，当迁移进行到一定阶段，目的主机已经具备了运行虚拟机系统的必须资源，经过一个非常短暂的切换，源主机将控制权转移到目的主机，虚拟机系统在目的主机上继续运行。对于虚拟机服务本身而言，由于切换的时间非常短暂，用户感觉不到服务的中断，因而迁移过程对用户是透明的。动态迁移适用于对虚拟机服务可用性要求很高的场合。
+
+目前主流的动态迁移工具，VMware 的 VMotion，Citrix 的 XenMotion，他们都依赖于物理机之间采用 SAN（storage area network）或 NAS（network-attached storage）之类的集中式共享外存设备，因而在迁移时只需要进行虚拟机系统内存执行状态的迁移，从而获得较好的迁移性能。
+
+本实验用的是virt-manager程序自带的迁移
 
 # 实验前准备
 
@@ -22,16 +30,38 @@
 ## 建立虚拟机
 
 1. 添加 NFS 存储池到源主机的virt-manager中
+![KVM Storage](report.assets/01.png)
+![create storage pool 1/2](report.assets/02.png)
+![create storage pool 2/2](report.assets/03.png)
+![create storage pool finish](report.assets/04.png)
 2. 源主机上创建建立在NFS共享存储上的虚拟机
-3. 开启虚拟机
+![create new virtual machine 1/5](report.assets/05.png)
+![create new virtual machine 2/5](report.assets/06.png)
+![create new virtual machine 3/5](report.assets/07.png)
+![create new virtual machine 4/5](report.assets/08.png)
+![create new virtual machine 5/5](report.assets/09.png)
+3. 在虚拟机中使用iso镜像文件安装系统
+![install ubuntu](report.assets/10.png)
 
-## 在目标主机上的链接
+## 在目标主机上的连接
 
 1. 添加 NFS 存储池到目标主机的virt-manager中
+2. 开启ssh服务
+
+## 迁移虚拟机
+
+1. 在源主机上开启虚拟机
+2. 在源主机的virt-manager中连接到目标主机
+![connect to the target](report.assets/11.png)
+3. 待开机完成后迁移虚拟机
+![migrate](report.assets/15.png)
 
 # 实验结论
 
 遇到特别困难的bug，做不出来。
+
+# 遇到的问题
+
 
 
 #参考资料
