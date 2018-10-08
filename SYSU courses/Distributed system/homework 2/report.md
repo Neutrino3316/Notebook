@@ -2,8 +2,8 @@
 
 小组人员：
 
-- 16337085
-- 1633
+- 16337085 胡中林
+- 16337339 朱祎康
 
 # 实验要求
 
@@ -91,7 +91,10 @@ Arch系统下的virt-manager不能弹窗，所以在ssh连接过程中无法输�
 
 换了不同的电脑，重头再次创建虚拟机，最后还是会遇到这个错误，不过required features后面的报错信息略有区别。尝试安装intel -ucode后更新配置文件并重启，仍然无法解决问题。
 
-#参考资料
+删除虚拟机中的设置对aes的支持也u不可以。把虚拟机的配置文件(一般是在`/etc/libvirt/qemu/[虚拟机名字].xml`)，编辑这个xml文件找到`<cpu model=...>`这一栏，在它下面加上`<feature policy='disable' name='aes'/>`，保存了之后，先关了虚拟机，终端输入sudo virsh define [你的虚拟机名字].xml之后再重启虚拟机。这种方法也还是不行，在迁移虚拟机的时候同样是报错了。
+
+
+# 参考资料
 
 - [KVM virtual machine mirgration tutorials](https://www.linux-kvm.org/page/Migration)
 - https://blog.csdn.net/taiyang1987912/article/details/47973479
@@ -99,3 +102,4 @@ Arch系统下的virt-manager不能弹窗，所以在ssh连接过程中无法输�
 - https://www.ibm.com/developerworks/cn/linux/l-cn-mgrtvm2/index.html
 - http://www.cnblogs.com/liuyansheng/p/5985633.html
 - https://www.ibm.com/developerworks/cn/linux/l-cn-mgrtvm2/index.html
+- https://blog.csdn.net/x_i_y_u_e/article/details/51446343
