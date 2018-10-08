@@ -34,28 +34,42 @@
 
 ## 搭建NFS服务器
 
+- 服务器地址：`192.168.199.166`
+- 此处分享的目录文件为：`/home/zyhhaohao55/Downloads`
+- 可以连接的IP为：`192.168.199.*` 
+- 挂载用户的权限：`（rw, sync, no_subtree_check, no_root_squash）`
+目的：虚拟机迁移需要将虚拟机的磁盘文件存储在NFS服务器上，这样在传递数据的时候就不用传递磁盘数据，传递的时候就只用传递内存数据就可以了。
+1. 首先在系统中安装nfs-kernel-server,这是搭建NFS服务器需要的软件
+2. 然后进入/etc/exports文档当中，修改文档，在文档的最后一行加上共享地址、IP和权限
+3. 在源主机和目标主机上用`showmount -e 192.168.199.166`这条命令来查看是否成功搭建NFS服务器
 
 
 ## 建立虚拟机
 
-1. 添加 NFS 存储池到源主机的virt-manager中
+1. 在源主机上挂载NFS服务器
+2. 添加 NFS 存储池到源主机的virt-manager中。在存储池中新增一个池，命名为`nfs`，类型选择`netfs`，目标路径使用自动创建的，主机名用`192.168.199.166`， 共享目录为`/home/zyhhaohao55/Downloads`
 ![KVM Storage](report.assets/01.png)
 ![create storage pool 1/2](report.assets/02.png)
 ![create storage pool 2/2](report.assets/03.png)
+然后创建一个10GB大小的`qcow2`虚拟磁盘文件，创建完之后刷新下，并且在NFS服务器相应的目录查看一下，确保创建成功。
 ![create storage pool finish](report.assets/04.png)
-2. 源主机上创建建立在NFS共享存储上的虚拟机
+3. 源主机上创建建立在NFS共享存储上的虚拟机。
 ![create new virtual machine 1/5](report.assets/05.png)
+使用本地的Ubuntu ISO镜像文件安装虚拟机
 ![create new virtual machine 2/5](report.assets/06.png)
 ![create new virtual machine 3/5](report.assets/07.png)
+内存1024MB，分配一个CPU
 ![create new virtual machine 4/5](report.assets/08.png)
+存储文件就选择刚才创建的那个10GB的虚拟磁盘文件。
 ![create new virtual machine 5/5](report.assets/09.png)
 3. 在虚拟机中使用iso镜像文件安装系统
 ![install ubuntu](report.assets/10.png)
 
 ## 在目标主机上的连接
 
-1. 添加 NFS 存储池到目标主机的virt-manager中
-2. 开启ssh服务
+1. 添加 NFS 存储池到目标主机的virt-manager中，方法和在源主机的方法一致
+2. 在目标主机上开启ssh服务
+3. 在源主机的virt-manager新建连接，然后输入目标主机的用户名和目标主机IP地址，就可以连接了。不过这里遇到一个小问题，可以通过`sudo virt-manager --no-fork`来再次打开软件解决，不然的话无法输入ssh的密码。
 
 ## 迁移虚拟机
 
