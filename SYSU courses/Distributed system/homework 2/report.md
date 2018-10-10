@@ -89,23 +89,23 @@
 
 在源主机的Arch系统重启网络服务。
 
-## 1. 无法在源主机的virt-manager中连接到目标主机
+## 2. 无法在源主机的virt-manager中连接到目标主机
 
 Arch系统下的virt-manager不能弹窗，所以在ssh连接过程中无法输目标主机的密码，因而无法连接。要用`sudo virt-manager --no-fork`来打开软件，在要输密码的时候，回到命令行界面输入目标主机的密码。
 
-## 1. 装在NFS上的虚拟机运行速度很慢
+## 3. 装在NFS上的虚拟机运行速度很慢
 
 当时装个Ubuntu系统都用了一个多小时，装好之后虚拟机每一次开机都需要20分钟以上的时间。瓶颈可能是网络传输速度过低和硬盘相应延时。每一次重启虚拟机要花费半个小时以上的时间，这个时间太长，让人无法接受。
 
-## 1. 无法迁移虚拟机 提示不安全
+## 4. 无法迁移虚拟机 提示不安全
 
 在Advanced选项中，允许不安全的迁移。
 
-## 1. 无法迁移虚拟机 host CPU does not provide required features
+## 5. 无法迁移虚拟机 host CPU does not provide required features
 
 换了不同的电脑，重头再次创建虚拟机，最后还是会遇到这个错误，不过required features后面的报错信息略有区别。尝试安装intel -ucode后更新配置文件并重启，仍然无法解决问题。
 
-删除虚拟机中的设置对aes的支持也u不可以。把虚拟机的配置文件(一般是在`/etc/libvirt/qemu/[虚拟机名字].xml`)，编辑这个xml文件找到`<cpu model=...>`这一栏，在它下面加上`<feature policy='disable' name='aes'/>`，保存了之后，先关了虚拟机，终端输入sudo virsh define [你的虚拟机名字].xml之后再重启虚拟机。这种方法也还是不行，在迁移虚拟机的时候同样是报错了。
+删除虚拟机中的设置对aes的支持也是不可以。把虚拟机的配置文件(一般是在`/etc/libvirt/qemu/[虚拟机名字].xml`)，编辑这个xml文件找到`<cpu model=...>`这一栏，在它下面加上`<feature policy='disable' name='aes'/>`，保存了之后，先关了虚拟机，终端输入sudo virsh define [你的虚拟机名字].xml之后再重启虚拟机。这种方法也还是不行，在迁移虚拟机的时候同样是报错了。
 
 
 # 参考资料
@@ -116,4 +116,4 @@ Arch系统下的virt-manager不能弹窗，所以在ssh连接过程中无法输�
 - https://www.ibm.com/developerworks/cn/linux/l-cn-mgrtvm2/index.html
 - http://www.cnblogs.com/liuyansheng/p/5985633.html
 - https://www.ibm.com/developerworks/cn/linux/l-cn-mgrtvm2/index.html
-- https://blog.csdn.net/x_i_y_u_e/article/details/51446343
+- https://blog.csdn.net/xiyue/article/details/51446343
