@@ -84,30 +84,3 @@ void loop() {
 		setSpeed(leftspeed=100, rightspeed=120);
 	}
 }
-
-void normalRun() {    
-	 // turn on motor A
-	//digitalWrite(in1, HIGH);
-	
-	digitalWrite(in2, LOW);
-	digitalWrite(in4, LOW);
-	analogWrite(in1,175);//å·?
-	analogWrite(in3,210);
-	/*for(int i = 0;i <255;i+= 5){
-		analogWrite(in3,i);
-		analogWrite(in1,i);
-		delay(10);
-	}
-	 for(int i = 255;i > 0;i-= 5){
-		analogWrite(in3,i+20);
-		analogWrite(in1,i);
-		delay(10);
-	}*/
-	//analogWrite(6,255);
-	//delay(5000);
-	// turn on motor B
-	//digitalWrite(in3, HIGH);
-	//analogWrite(10,180);
-	//delay(5000);
-	
-}
