@@ -3,16 +3,23 @@ int in2 = 4;
 // motor two
 int in3 = 6;
 int in4 = 7;
+
 const int TrigPin =  9;
 const int EchoPin =  8;
 float cm;
+
 int Sensor_front_pin = 2;
 int Sensor_right_pin = 3;
+
+namespace ultrasoundstate {
+	int too_far = 2;
+	int too_close = 0;
+	int in_range = 1;
+}
 
 // judge the state of the distance from car to wall
 int ultraSoundState(){	
 	digitalWrite(TrigPin, LOW);
-	//
 	delayMicroseconds(2);
 	digitalWrite(TrigPin, HIGH);
 	delayMicroseconds(10);
@@ -20,9 +27,9 @@ int ultraSoundState(){
 	float time_reply=pulseIn(EchoPin, HIGH); //the time from sent to receive
 	cm = time_reply / 58.82;	//the distance(cm)
 	Serial.println(cm);
-	if (cm >30 ) return 1;
-	else if (cm < 25) return 0;
-	else return 2;
+	if (cm > 30) return ultrasoundstate::too_far;
+	else if (cm < 25) return ultrasoundstate::too_close;
+	else return ultrasoundstate::in_range;
 }
 void setup() {
 	// put your setup code here, to run once:
@@ -35,7 +42,7 @@ void setup() {
 	pinMode(EchoPin, INPUT);
 }
 
-int detect(int Sensor_pin) {
+int infraredDetect(int Sensor_pin) {
 	 int sensorValue = digitalRead(Sensor_pin);
 	 Serial.print(Sensor_pin);
 	 Serial.println(sensorValue);
@@ -56,13 +63,13 @@ void loop() {
 	// put your main code here, to run repeatedly:
 	digitalWrite(in2, LOW);
 	digitalWrite(in4, LOW);
-	int front_clear = detect(Sensor_front_pin);
-	int right_clear  = detect(Sensor_right_pin);
+	int front_clear = infraredDetect(Sensor_front_pin);
+	int right_clear  = infraredDetect(Sensor_right_pin);
 	
-	if (ultraSoundState() == 1 ) {
+	if (ultraSoundState() == ultrasoundstate::too_far) {
 		setSpeed(leftspeed=150, rightspeed=100);
 	}
-	else if (ultraSoundState() == 2) {	
+	else if (ultraSoundState() == ultrasoundstate::in_range) {	
 		if (front_clear == 1) {
 			setSpeed(leftspeed=100, rightspeed=150);
 		}
@@ -70,7 +77,7 @@ void loop() {
 			setSpeed(leftspeed=100, rightspeed=120);
 		}
 	}
-	else if (ultraSoundState() == 0) {
+	else if (ultraSoundState() == ultrasoundstate::too_close) {
 		setSpeed(leftspeed=100, rightspeed=150);
 	}
 	else {
