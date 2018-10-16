@@ -10,7 +10,7 @@ int Sensor_front_pin = 2;
 int Sensor_right_pin = 3;
 
 // judge the state of the distance from car to wall
-int state(){	
+int ultraSoundState(){	
 	digitalWrite(TrigPin, LOW);
 	//
 	delayMicroseconds(2);
@@ -18,7 +18,7 @@ int state(){
 	delayMicroseconds(10);
 	digitalWrite(TrigPin, LOW);
 	float time_reply=pulseIn(EchoPin, HIGH); //the time from sent to receive
-	cm = time_reply /58.82;	//the distance(cm)
+	cm = time_reply / 58.82;	//the distance(cm)
 	Serial.println(cm);
 	if (cm >30 ) return 1;
 	else if (cm < 25) return 0;
@@ -59,10 +59,10 @@ void loop() {
 	int front_clear = detect(Sensor_front_pin);
 	int right_clear  = detect(Sensor_right_pin);
 	
-	if (state() == 1 ) {
+	if (ultraSoundState() == 1 ) {
 		setSpeed(leftspeed=150, rightspeed=100);
 	}
-	else if (state() == 2) {	
+	else if (ultraSoundState() == 2) {	
 		if (front_clear == 1) {
 			setSpeed(leftspeed=100, rightspeed=150);
 		}
@@ -70,7 +70,7 @@ void loop() {
 			setSpeed(leftspeed=100, rightspeed=120);
 		}
 	}
-	else if (state() == 0) {
+	else if (ultraSoundState() == 0) {
 		setSpeed(leftspeed=100, rightspeed=150);
 	}
 	else {
