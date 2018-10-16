@@ -34,12 +34,19 @@ void setup() {
 	 pinMode(TrigPin, OUTPUT);
 	pinMode(EchoPin, INPUT);
 }
+
 int detect(int Sensor_pin) {
 	 int sensorValue = digitalRead(Sensor_pin);
 	 Serial.print(Sensor_pin);
 	 Serial.println(sensorValue);
 	 delay(100);
 	 return sensorValue;
+}
+
+void setSpeed(int leftspeed, int rightspeed) {
+	// go straight or turn right or turn left
+	analogWrite(in3, rightspeed);
+	analogWrite(in1, leftspeed);
 }
 
 int leftspeed = 100;
@@ -53,36 +60,21 @@ void loop() {
 	int right_clear  = detect(Sensor_right_pin);
 	
 	if (state() == 1 ) {
-		leftspeed = 150;
-		rightspeed = 100;
-		analogWrite(in3, rightspeed);
-		analogWrite(in1, leftspeed);
+		setSpeed(leftspeed=150, rightspeed=100);
 	}
 	else if (state() == 2) {	
 		if (front_clear == 1) {
-			leftspeed = 100;
-			rightspeed = 150;
-			analogWrite(in1, leftspeed);
-			analogWrite(in3, rightspeed);
+			setSpeed(leftspeed=100, rightspeed=150);
 		}
 		if (front_clear == 0) {
-			leftspeed = 100;
-			rightspeed = 120;
-			analogWrite(in1,leftspeed);
-			analogWrite(in3,rightspeed);
+			setSpeed(leftspeed=100, rightspeed=120);
 		}
 	}
 	else if (state() == 0) {
-		leftspeed = 100;
-		rightspeed = 150;
-		analogWrite(in1,leftspeed);
-		analogWrite(in3,rightspeed);
+		setSpeed(leftspeed=100, rightspeed=150);
 	}
 	else {
-		leftspeed = 100;
-		rightspeed = 120;
-		analogWrite(in1,leftspeed);
-		analogWrite(in3,rightspeed);
+		setSpeed(leftspeed=100, rightspeed=120);
 	}
 }
 
