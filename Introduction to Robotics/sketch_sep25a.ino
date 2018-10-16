@@ -66,23 +66,23 @@ void loop() {
 	int front_clear = infraredDetect(Sensor_front_pin);
 	int right_clear  = infraredDetect(Sensor_right_pin);
 	
-	if (ultraSoundState() == ultrasoundstate::too_far) {
-		setSpeed(leftspeed=150, rightspeed=100);
-	}
-	else if (ultraSoundState() == ultrasoundstate::in_range) {	
-		if (front_clear == 1) {
-			setSpeed(leftspeed=100, rightspeed=150);
-		}
-		if (front_clear == 0) {
-			setSpeed(leftspeed=100, rightspeed=120);
-		}
-	}
-	else if (ultraSoundState() == ultrasoundstate::too_close) {
-		setSpeed(leftspeed=100, rightspeed=150);
-	}
-	else {
-		setSpeed(leftspeed=100, rightspeed=120);
-	}
+    if (front_clear == 1) {
+        if (ultraSoundState() == ultrasoundstate::too_far) {
+            if (right_clear == 0) {
+                setSpeed(leftspeed=80, rightspeed=100);
+            }
+            else {
+                setSpeed(leftspeed=50, rightspeed=50);
+            }
+        }
+        else if (ultraSoundState() == ultrasoundstate::in_range) {
+            setSpeed(leftspeed=80, rightspeed=95);
+        }
+        else {
+            // ultraSoundState() == ultrasoundstate::too_close
+            setSpeed(leftspeed=80, rightspeed=100);
+        }
+    }
 }
 
 /*
