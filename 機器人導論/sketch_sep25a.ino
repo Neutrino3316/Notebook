@@ -43,11 +43,11 @@ void setup() {
 }
 
 int infraredDetect(int Sensor_pin) {
-	 int sensorValue = digitalRead(Sensor_pin);
-	 Serial.print(Sensor_pin);
-	 Serial.println(sensorValue);
-	 delay(100);
-	 return sensorValue;
+	int sensorValue = digitalRead(Sensor_pin);
+	Serial.print(Sensor_pin);
+	Serial.println(sensorValue);
+	delay(100);
+	return sensorValue;
 }
 
 void setSpeed(int leftspeed, int rightspeed) {
@@ -85,7 +85,7 @@ void loop() {
 	}
 }
 
-void normalRun(){    
+void normalRun() {    
 	 // turn on motor A
 	//digitalWrite(in1, HIGH);
 	
