@@ -8,15 +8,17 @@ const int EchoPin =  8;
 float cm;
 int Sensor_front_pin = 2;
 int Sensor_right_pin = 3;
-int value(){
+
+// judge the state of the distance from car to wall
+int state(){	
 	digitalWrite(TrigPin, LOW);
-	//浣庨珮浣庣數骞冲彂涓€涓煭鏃堕棿鑴夊啿鍘籘rigPin
+	//
 	delayMicroseconds(2);
 	digitalWrite(TrigPin, HIGH);
 	delayMicroseconds(10);
 	digitalWrite(TrigPin, LOW);
 	float time_reply=pulseIn(EchoPin, HIGH); //the time from sent to receive
-	cm = time_reply /58.82;
+	cm = time_reply /58.82;	//the distance(cm)
 	Serial.println(cm);
 	if (cm >30 ) return 1;
 	else if (cm < 25) return 0;
@@ -39,62 +41,58 @@ int detect(int Sensor_pin) {
 	 delay(100);
 	 return sensorValue;
 }
+
 int leftspeed = 100;
 int rightspeed = 120;
+
 void loop() {
 	// put your main code here, to run repeatedly:
+	digitalWrite(in2, LOW);
+	digitalWrite(in4, LOW);
+	int front_clear = detect(Sensor_front_pin);
+	int right_clear  = detect(Sensor_right_pin);
+	
+	if (state() == 1 ) {
+		leftspeed = 150;
+		rightspeed = 100;
+		analogWrite(in3, rightspeed);
+		analogWrite(in1, leftspeed);
+	}
+	else if (state() == 2) {	
+		if (front_clear == 1) {
+			leftspeed = 100;
+			rightspeed = 150;
+			analogWrite(in1, leftspeed);
+			analogWrite(in3, rightspeed);
+		}
+		if (front_clear == 0) {
+			leftspeed = 100;
+			rightspeed = 120;
+			analogWrite(in1,leftspeed);
+			analogWrite(in3,rightspeed);
+		}
+	}
+	else if (state() == 0) {
+		leftspeed = 100;
+		rightspeed = 150;
+		analogWrite(in1,leftspeed);
+		analogWrite(in3,rightspeed);
+	}
+	else {
+		leftspeed = 100;
+		rightspeed = 120;
+		analogWrite(in1,leftspeed);
+		analogWrite(in3,rightspeed);
+	}
+}
 
-			digitalWrite(in2, LOW);
-			digitalWrite(in4, LOW);
-			int front = detect(Sensor_front_pin);
-			int right = detect(Sensor_right_pin);
-			
-			if (value() == 1 ){
-					 leftspeed = 150;
-					 rightspeed = 100;
-					 analogWrite(in3,rightspeed);
-					analogWrite(in1,leftspeed);
-			 }
-			 else if(value() == 2){
-				 
-					if (front == 1) {
-						 leftspeed = 100;
-						 rightspeed = 150;
-						analogWrite(in1,leftspeed);
-						analogWrite(in3,rightspeed);
-					 
-					}
-					 if ( front == 0){
-						leftspeed = 100;
-						rightspeed = 120;
-						analogWrite(in1,leftspeed);
-					 analogWrite(in3,rightspeed);
-					}
-				}
-				
-			else if(value() == 0){
-				 leftspeed = 100;
-				 rightspeed = 150;
-				 analogWrite(in1,leftspeed);
-				analogWrite(in3,rightspeed);
-			}
-			else{
-				 leftspeed = 100;
-				 rightspeed = 120;
-				 analogWrite(in1,leftspeed);
-					analogWrite(in3,rightspeed);
-				 
-			 }
- 
- //normalRun();
- }
 void normalRun(){    
 	 // turn on motor A
 	//digitalWrite(in1, HIGH);
 	
 	digitalWrite(in2, LOW);
 	digitalWrite(in4, LOW);
-	analogWrite(in1,175);//左
+	analogWrite(in1,175);//�?
 	analogWrite(in3,210);
 	/*for(int i = 0;i <255;i+= 5){
 		analogWrite(in3,i);
