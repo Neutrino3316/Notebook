@@ -30,8 +30,8 @@ void setup() {
 	pinMode(in2, OUTPUT);
 	pinMode(in3, OUTPUT);
 	pinMode(in4, OUTPUT);
-	 Serial.begin(9600);
-	 pinMode(TrigPin, OUTPUT);
+	Serial.begin(9600);
+	pinMode(TrigPin, OUTPUT);
 	pinMode(EchoPin, INPUT);
 }
 
