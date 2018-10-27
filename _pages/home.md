@@ -1,6 +1,6 @@
 ---
 permalink: /
-title: "实验室指南主页"
+title: "主页"
 toc: true
 toc_sticky: true
 
