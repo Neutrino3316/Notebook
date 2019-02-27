@@ -8,16 +8,13 @@ permalink: /typora_skills/
 
 ## HTML
 
-TyporaÊÇÖ§³ÖhtmlÕZÑÔµÄ£¬¶øÇÒÓÃµÄÊÇchromeƒÈºË£¬ËùÒÔ¡­¡­ÆäŒ¿ÉÒÔ°ÑTypora®”×÷gÓ[Æ÷íÓÃµÄ¡£
+Typoraæ˜¯æ”¯æŒhtmlèªè¨€çš„ï¼Œè€Œä¸”ç”¨çš„æ˜¯chromeå…§æ ¸ï¼Œæ‰€ä»¥â€¦â€¦å…¶å¯¦å¯ä»¥æŠŠTyporaç•¶ä½œç€è¦½å™¨ä¾†ç”¨çš„ã€‚
 
-±È·½Õf£¬¿ÉÒÔÔÚTyporaÑeÃæ¿´BÕ¾¡£
+æ¯”æ–¹èªªï¼Œå¯ä»¥åœ¨Typoraè£¡é¢çœ‹Bç«™ã€‚
 
 Typora supports html and uses the chrome kernel, so... you can actually use Typora as a browser.
 
 For example, you can play visit some video station and watch video via Typoa.
 
 
-
-
-
-<iframe width='600' height='500' frameborder='0' scrolling='no' marginheight='0' marginwidth='0' src='https://www.bilibili.com/video/av41809384?from=search&seid=13082272832060676655'></iframe>
+<iframe width='300' height='500' frameborder='0' scrolling='no' marginheight='0' marginwidth='0' src='https://www.bilibili.com/video/av41809384?from=search&seid=13082272832060676655'></iframe>
